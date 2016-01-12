@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="jquery.mobile.flatui.css" />
+  <script src="jquery.min.js"></script>
+  <script src="jquery.mobile-1.3.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="jquery.css" />
+		
+		
+
+
+        <script>
+            
+            function addMealReview(restaurantName){ //restName
+                console.log('ok so far');
+                console.log(restaurantName);
+                console.log("is still ok?")
+                var meal= $("#dishName"+restaurantName).val(); //mealName
+                var mealRate= $("#dishRating"+restaurantName).val();//mealRating
+                var note= $("#dishNote"+restaurantName).val();//mealNote
+                var mealPrice= $("#priceofDish"+restaurantName).val(); //priceofMeal
+                console.log('super ok');
+                
+                var theaddingOfMeal = "<div data-role='content' >"; //content
+                //theaddingOfMeal += "<ul data-role='listview' data-theme='d' data-divider-theme='d'>"; /
+                theaddingOfMeal += "<li data-role='list-divider'   id='#"+meal+"'><h3>"+meal+"</h3></li>"; //the meal title/name
+                theaddingOfMeal += "<span class='ui-li-count' data-theme='c' id='#"+mealRate+"'><strong>Rate:</strong>"+mealRate+"</span></li>"; //the little bubble would be the rate
+                theaddingOfMeal += " <li><p class='ui-li-aside' data-theme='c' id='#"+mealPrice+"'><strong>$</strong>"+mealPrice+"</p>"; 
+				theaddingOfMeal += "<p data-theme='c' id='#"+note+"'><strong>Note:</strong>"+note+"</p><hr></li>"; //the note
+                
+                theaddingOfMeal += "</div>"; //end div tags
+                console.log('sorta complete');
+                
+                // NC: a 'mealList' div tag does not exist
+                $('#mealList'+restaurantName).append(theaddingOfMeal);
+                
+            }
+            
+
+            
+            
+            function addmyRests(){
+
+                var name = $("#restName").val();
+                
+                console.log(name);
+                
+                
+                //fill in the popup
+                var addmealpopup = "<div data-role='popup'  data-theme='b' id='addmeal"+name+"'>";
+                addmealpopup += "<div data-role='content' >";//<!--content-->
+                addmealpopup += "<div data-role='fieldcontain'><label for='name-a'>Meal Name:</label><input type='text' id='dishName"+name+"'   value='' /></div>";//<!--restaurant name-->
+                addmealpopup +="<label for='slider-1'>Rate: </label><input type='range' name='slider' id='dishRating"+name+"' value='0' min='0' max='10' />";//<!--slider and input-->
+                addmealpopup += "<label for='name'> Price $:</label><input type='text' name='name' id='priceofDish"+name+"' value='0'/>";//price
+                addmealpopup += "<label for='textarea-a'>Note:</label><textarea name='textarea' id='dishNote"+name+"'></textarea>";
+                addmealpopup += "<a href='#"+name+"' data-role='button' data-rel='dialog' data-corners='false'  data-inline='true' data-rel='#"+name+"' onclick='addMealReview(\""+name+"\");'>Add Meal</a>";//<!--the addmeal button-->
+                addmealpopup += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Cancel</a>";//<!--cancel button and closing list-->
+                addmealpopup += "</div>";//close content
+                addmealpopup += "</div>";//close popup
+
+                //make page to add
+                var pagestring = "<div data-role='page' id='"+name+"'>";//open page div
+                pagestring += "<div data-role='header' data-theme='g'><h1>"+name+"</h1></div>"; //make header div (open and close)
+                pagestring += "<a data-role='button' href='#addmeal"+name+"' data-rel='popup' data-inline='true' data-theme='a' data-corners='false'>Add Meal</a>";//button for add meal
+				pagestring += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>";
+                pagestring += "<ul data-role='listview' data-theme='d' data-divider-theme='d' data-inset='true' id='mealList"+name+"'></ul>";
+			    pagestring += addmealpopup;//content of apopup
+				pagestring += "<div data-theme='g' data-role='footer'><a href='#pagezero'   data-inline='true' data-corners='false' data-role='button'>Home</a>";
+				pagestring += "<a href='#'   data-inline='true' data-corners='false' data-role='button'>About us</a>";
+				pagestring += "<a href='#'   data-inline='true' data-corners='false' data-role='button'>Careers</a><center> Ricord© Est.2013</center>";
+				pagestring += "</div>";
+                pagestring += "</div>";//close page
+
+                $('body').append(pagestring);
+
+                $("#myrestaurantlist").append("<li><a href='#"+name+"'>"+name+"</a></li>"); //MAKE THIS PRETTIER IN BETA
+				
+				$("#myrestaurantlist").listview('refresh');//remove????
+				$("#myrestaurantlist").trigger('create');//remove????
+
+            }
+/////////////////////////////////////////////////////////////////////////////////////
+ function addBookReview(libroName){ //restName meal=book restaurant= libro dish=reading rest=pad
+                console.log('ok so far');
+                console.log(libroName);
+                console.log("is still ok?")
+                var book= $("#readingName"+libroName).val(); //mealName
+                var bookRate= $("#readingRating"+ libroName).val();//mealRating
+                var booknote= $("#readingNote"+ libroName).val();//mealNote
+                //var mealPrice= $("#priceofDish"+restaurantName).val(); //priceofMeal
+                console.log('super ok');
+                
+                var theaddingOfBook = "<div data-role='content'>"; //content
+                //theaddingOfMeal += "<ul data-role='listview' data-theme='d' data-divider-theme='d'>"; /
+                theaddingOfBook += "<li data-role='list-divider' id='#"+book+"'><h3>"+book+"</h3></li>"; //the meal title/name
+                theaddingOfBook += "<span class='ui-li-count' id='#"+bookRate+"'><strong>Rate:</strong>"+bookRate+"</span></li>"; //the little bubble would be the rate
+                theaddingOfBook += "<li><p id='#"+booknote+"'><strong>Note:</strong>"+booknote+"</p><hr>"; //the note
+                theaddingOfBook +=  "</li>"; //the price would be on the side + closing ul and li tags
+                theaddingOfBook += "</div>"; //end div tags
+                console.log('sorta complete');
+                
+                // NC: a 'mealList' div tag does not exist
+                $('#bookList'+libroName).append(theaddingOfBook);
+                
+            }
+            
+
+            
+            
+            function addmyPads(){
+
+                var bname = $("#padName").val();
+                
+                console.log(name);
+                
+                
+                //fill in the popup
+                var addbookpopup = "<div data-role='popup' id='addbook"+bname+"'>";
+                addbookpopup += "<div data-role='content' data-theme='c'>";//<!--content-->
+                addbookpopup += "<div data-role='fieldcontain'><label for='name-a'>Book Title:</label><input type='text' id='readingName"+bname+"'   value='' /></div>";//<!--restaurant name-->
+                addbookpopup +="<label for='slider-1'>Rate: </label><input type='range' name='slider' id='readingRating"+bname+"' value='0' min='0' max='10' />";//<!--slider and input-->
+                //addbookpopup += "<label for='name'> Price $:</label><input type='text' name='name' id='priceofDish"+bname+"' value='0'/>";//price
+                addbookpopup += "<label for='textarea-a'>Note:</label><textarea name='textarea' id='readingNote"+bname+"'></textarea>";
+                addbookpopup += "<a href='#"+bname+"' data-role='button' data-rel='dialog' data-corners='false'  data-inline='true' data-rel='#"+bname+"' onclick='addBookReview(\""+bname+"\");'>Add Book</a>";//<!--the addmeal button-->
+                addbookpopup += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>";//<!--cancel button and closing list-->
+                addbookpopup += "</div>";//close content
+                addbookpopup += "</div>";//close popup
+
+                //make page to add
+                var bookpagestring = "<div data-role='page' id='"+bname+"'>";//open page div
+                bookpagestring += "<div data-role='header' data-theme='g'><h1>"+bname+"</h1></div>"; //make header div (open and close)
+                bookpagestring += "<a data-role='button' href='#addbook"+bname+"' data-rel='popup' data-corners='false' data-inline='true' data-theme='a'>Add Book</a>";//button for add meal
+				bookpagestring += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>";
+				//bookpagestring += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Cancel</a>";
+                bookpagestring += addbookpopup;//content of apopup
+                bookpagestring += "<ul data-role='listview' data-theme='d' data-divider-theme='d' data-inset='true' id='bookList"+bname+"'></ul>";//<!--listview-->
+				bookpagestring += "<div data-theme='g' data-role='footer'><a href='#pagezero'    data-inline='true' data-corners='false' data-role='button'>Home</a>";
+				bookpagestring += "<a href='#'   data-inline='true' data-corners='false' data-role='button'>About us</a>";
+				bookpagestring += "<a href='#'   data-inline='true' data-corners='false' data-role='button'>Careers</a><center> Ricord© Est.2013</center>";
+				bookpagestring += "</div>";
+                bookpagestring += "</div>";//close page
+
+                $('body').append(bookpagestring);
+
+                $("#mylibrolist").append("<li><a href='#"+bname+"'>"+bname+"</a></li>"); //MAKE THIS PRETTIER IN BETA
+				
+				$("#mylibrolist").listview('refresh');//remove????
+				$("#mylibrolist").trigger('create');//remove????
+
+            }
+	/////////////////////////////////////////////////////////////////////wishlist
+	function addtoWishList(itemName){ // book=desire libro=item reading=want pads= longing
+                console.log('ok so far');
+                console.log(itemName);
+                console.log("is still ok?")
+                var desire= $("#wantName"+itemName).val(); //mealName
+                var desireRate= $("#wantRating"+ itemName).val();//mealRating
+                var desirenote= $("#wantNote"+ itemName).val();//mealNote
+                //var mealPrice= $("#priceofDish"+restaurantName).val(); //priceofMeal
+                console.log('super ok');
+                
+                var theaddingOfDesire = "<div data-role='content'>"; //content
+                //theaddingOfMeal += "<ul data-role='listview' data-theme='d' data-divider-theme='d'>"; /
+                theaddingOfDesire += "<li data-role='list-divider' id='#"+desire+"'><h3>"+desire+"<h3></li>"; //the meal title/name
+                theaddingOfDesire += "<span class='ui-li-count' id='#"+desireRate+"'><strong>Priority></strong>"+desireRate+"</span></li>"; //the little bubble would be the rate
+                theaddingOfDesire += "<li><p id='#"+desirenote+"'><strong>Note:</strong>"+desirenote+"</p><hr>"; //the note
+                theaddingOfDesire +=  "</li>"; //the price would be on the side + closing ul and li tags
+                theaddingOfDesire += "</div>"; //end div tags
+                console.log('sorta complete');
+                
+                // NC: a 'mealList' div tag does not exist
+                $('#desireList'+itemName).append(theaddingOfDesire);
+                
+            }
+            
+
+            
+            
+            function addmyLonging(){
+
+                var cname = $("#longingName").val();
+                
+                console.log(cname);
+                
+                
+                //fill in the popup
+                var adddesirepopup = "<div data-role='popup' id='adddesire"+cname+"'>";
+                adddesirepopup += "<div data-role='content' data-theme='c'>";//<!--content-->
+                adddesirepopup += "<div data-role='fieldcontain'><label for='name-a'>Item:</label><input type='text' id='wantName"+cname+"'   value='' /></div>";//<!--restaurant name-->
+                adddesirepopup +="<label for='slider-1'>Priority: </label><input type='range' name='slider' id='wantRating"+cname+"' value='0' min='0' max='10' />";//<!--slider and input-->
+                adddesirepopup += "<label for='name'> Price $:</label><input type='text' name='name' id='priceofDish"+cname+"' value='0'/>";//price
+                adddesirepopup += "<label for='textarea-a'>Note:</label><textarea name='textarea' id='wantNote"+cname+"'></textarea>";
+                adddesirepopup += "<a href='#"+cname+"' data-role='button' data-rel='dialog' data-corners='false'  data-inline='true' data-rel='#"+cname+"' onclick='addtoWishList(\""+cname+"\");'>Add Meal</a>";//<!--the addmeal button-->
+                adddesirepopup += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Cancel</a>";//<!--cancel button and closing list-->
+                adddesirepopup += "</div>";//close content
+                adddesirepopup += "</div>";//close popup
+
+                //make page to add
+                var desirepagestring = "<div data-role='page' id='"+cname+"'>";//open page div
+                desirepagestring += "<div data-role='header' data-theme='g'><h1>"+cname+"</h1></div>"; //make header div (open and close)
+                desirepagestring += "<a data-role='button' href='#adddesire"+cname+"' data-rel='popup' data-inline='true' data-theme='a' data-corners='false' >Add Item</a>";//button for add meal
+				desirepagestring += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>";
+                desirepagestring += adddesirepopup;//content of apopup
+                desirepagestring += "<ul data-role='listview' data-theme='d' data-divider-theme='d' data-inset='true' id='desireList"+cname+"'></ul>";//<!--listview-->
+				desirepagestring += "<div data-theme='g' data-role='footer'><a href='#pagezero'    data-inline='true' data-corners='false' data-role='button'>Home</a>";
+				desirepagestring += "<a href='#'   data-inline='true' data-corners='false' data-role='button'>About us</a><a href='#'   data-inline='true' data-corners='false' data-role='button'>Careers</a><center> Ricord© Est.2013</center>";
+				desirepagestring += "</div>";
+                desirepagestring += "</div>";//close page
+
+                $('body').append(desirepagestring);
+
+                $("#myitemlist").append("<li><a href='#"+cname+"'>"+cname+"</a></li>"); //MAKE THIS PRETTIER IN BETA
+				
+				
+				$("#myitemlist").listview('refresh');//remove????
+				$("#myitemlist").trigger('create');//remove????
+
+            }
+            
+ /////////////////////////////////////////////////////////////////// The clothing page           ////////////////////////////
+ 
+ 
+ 
+ 
+		/*function addtoClothing(shirtName){ //wishlist= clothing desire=apparel item=shirt want=pants longing=skirt
+                console.log('ok so far');
+                console.log(shirtName);
+                console.log("is still ok?")
+                var apparel= $("#pantsName"+shirtName).val(); //mealName
+                var apparelRate= $("#pantsRating"+ shirtName).val();//mealRating
+                var apparelnote= $("#pantsNote"+ shirtName).val();//mealNote
+                //var mealPrice= $("#priceofDish"+restaurantName).val(); //priceofMeal
+                console.log('super ok');
+                
+                var theaddingOfApparel = "<div data-role='content'>"; //content
+                //theaddingOfMeal += "<ul data-role='listview' data-theme='d' data-divider-theme='d'>"; /
+                theaddingOfApparel += "<li data-role='list-divider' id='#"+apparel+"'><h3>"+apparel+"<h3></li>"; //the meal title/name
+                theaddingOfApparel += "<span class='ui-li-count' id='#"+apparelRate+"'><strong>Priority></strong>"+apparelRate+"</span></li>"; //the little bubble would be the rate
+                theaddingOfApparel += "<li><p id='#"+apparelnote+"'><strong>Note:</strong>"+apparelnote+"</p><hr>"; //the note
+                theaddingOfApparel +=  "</li>"; //the price would be on the side + closing ul and li tags
+                theaddingOfApparel += "</div>"; //end div tags
+                console.log('sorta complete');
+                
+                // NC: a 'mealList' div tag does not exist
+                $('#apparelList'+shirtName).append(theaddingOfApparel);
+                
+            }
+            
+
+            
+            
+            function addmySkirt(){
+
+                var cloname = $("#skirtName").val();
+                
+                console.log(cloname);
+                
+                
+                //fill in the popup
+                var addapparelpopup = "<div data-role='popup' id='addapparel"+cloname+"'>";
+                addapparelpopup += "<div data-role='content' data-theme='c'>";//<!--content-->
+                addapparelpopup += "<div data-role='fieldcontain'><label for='name-a'>Item:</label><input type='text' id='pantsName"+cloname+"'   value='' /></div>";//<!--restaurant name-->
+                addapparelpopup +="<label for='slider-1'>Priority: </label><input type='range' name='slider' id='pantsRating"+cloname+"' value='0' min='0' max='10' />";//<!--slider and input-->
+                addapparelpopup += "<label for='name'> Price $:</label><input type='text' name='name' id='priceofPants"+cloname+"' value='0'/>";//price
+                addapparelpopup += "<label for='textarea-a'>Note:</label><textarea name='textarea' id='pantsNote"+cloname+"'></textarea>";
+                addapparelpopup += "<a href='#"+cloname+"' data-role='button' data-rel='dialog' data-corners='false'  data-inline='true' data-rel='#"+cloname+"' onclick='addtoClothing(\""+cloname+"\");'>Add Item</a>";//<!--the addmeal button-->
+                addapparelpopup += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Cancel</a>";//<!--cancel button and closing list-->
+                addapparelpopup += "</div>";//close content
+                addapparelpopup += "</div>";//close popup
+
+                //make page to add
+                var apparelpagestring = "<div data-role='page' id='"+cloname+"'>";//open page div
+                apparelpagestring += "<div data-role='header' data-theme='g'><h1>"+cloname+"</h1></div>"; //make header div (open and close)
+                apparelpagestring += "<a data-role='button' href='#addapparel"+cloname+"' data-rel='popup' data-inline='true' data-theme='a' data-corners='false' >Add Item</a>";//button for add meal
+				apparelpagestring += "<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>";
+                apparelpagestring += addapparelpopup;//content of apopup
+                apparelpagestring += "<ul data-role='listview' data-theme='d' data-divider-theme='d' data-inset='true' id='apparelList"+cloname+"'></ul>";//<!--listview-->
+				apparelpagestring += "<div data-theme='g' data-role='footer'><a href='#pagezero'    data-inline='true' data-corners='false' data-role='button'>Home</a>";
+				apparelpagestring += "<a href='#'   data-inline='true' data-corners='false' data-role='button'>About us</a><a href='#'   data-inline='true' data-corners='false' data-role='button'>Careers</a><center> Ricord© Est.2013</center>";
+				apparelpagestring += "</div>";
+                apparelpagestring += "</div>";//close page
+
+                $('body').append(apparelpagestring);
+
+                $("#myclothinglist").append("<li><a href='#"+cloname+"'>"+cloname+"</a></li>"); //MAKE THIS PRETTIER IN BETA
+				
+				
+				$("#myclothinglist").listview('refresh');//remove????
+				$("#myclothinglist").trigger('create');//remove????
+
+            }*/
+        </script>
+
+</head>
+<body>
+	
+
+<div data-role="page"  id="pagezero">
+		<div data-role="header" data-theme="g"><h1>Ricord</h1></div>
+
+		<div data-role="content">
+			<div data-role="controlgroup">
+				<a href="#pageone" data-role="button">Restaurants</a>
+				<a href="#pagetwo" data-role="button">Books</a>
+				<a href="#pagethree" data-role="button">Wish List</a>
+				<a href="#pagefour" data-role="button">Sizing</a>
+				<a href="#" data-role="button">Business Cards</a>
+				
+			</div>
+		</div>
+		
+		<br>
+		<div data-theme="g" data-role="footer">
+			<a href="#pagezero"    data-inline="true" data-corners="false" data-role="button">Home</a>
+			<a href="#"   data-inline="true" data-corners="false" data-role="button">About us</a>
+			<a href="#"   data-inline="true" data-corners="false" data-role="button">Careers</a>
+			<center> Ricord© Est.2013</center>
+		</div>
+	</div>
+	
+
+<!------------------the restaurants add page----------->
+
+	<div data-role="page" id="pageone">
+    
+        <div data-role="header" data-theme="g"><h1>Restaurants</h1></div>
+
+		<a href="#mypop" data-rel="popup" data-theme="b" data-inline="true" data-corners="false" data-role="button" data-role="button">New Restaurant</a>
+		<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>
+		
+        <ul id="myrestaurantlist" data-theme="c" data-role="listview">
+			<li><a href="#">Cheesecake Factory</a></li>
+			<li><a href="#"> B.J's</a></li>
+			<li><a href="#">Five Guys</a></li>
+			<li><a href="#">Buca De Beppo</a></li>
+			<li><a href="#">P.F. Changs</a></li>
+			<li><a href="#">Elephant Bar</a></li>
+			<li><a href="#">Red Robin</a></li>
+		</ul>
+
+        
+
+        <div data-role="popup" id="mypop">
+            <label for="restName">New Restaurant</label>
+            <input type="text" name="name" id="restName" value=""  />
+            <a href="#pageone" data-role="button" onclick="addmyRests()">Add Restaurant</a>
+        </div>
+		
+		<br>
+		<div data-theme="g" data-role="footer">
+			<a href="#pagezero"   data-inline="true"  data-role="button">Home</a>
+			<a href="#"  data-inline="true"  data-role="button">About us</a>
+			<a href="#"   data-inline="true" data-corners="false" data-role="button">Careers</a>
+			<center> Ricord© Est.2013</center>
+		</div>
+    </div>
+<!----------the add book page-------------------------------------->
+
+
+	<div data-role="page" id="pagetwo">
+    
+        <div data-role="header" data-theme="g"><h1>Books</h1></div>
+
+		<a href="#mypoptwo" data-rel="popup" data-theme="b" data-inline="true" data-corners="false" data-role="button">Add Category</a>
+		<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>
+		
+        <ul data-role="listview" data-theme="c" id="mylibrolist">
+			<li><a href="#">Romance</a></li>
+			<li><a href="#">Sci-fi</a></li>
+			<li><a href="#">Mystery</a></li>
+			<li><a href="#">Non-Fiction</a></li>
+			<li><a href="#">Horror</a></li>
+			</ul>
+
+        
+
+        <div data-role="popup" id="mypoptwo">
+            <label for="padName">New Category</label>
+            <input type="text" name="name" id="padName" value=""  />
+            <a href="#pagetwo" data-role="button" onclick="addmyPads()">Add</a>
+        </div>
+		
+		<br>
+		<div data-theme="g" data-role="footer">
+			<a href="#pagezero"   data-inline="true"  data-role="button">Home</a>
+			<a href="#"  data-inline="true"  data-role="button">About us</a>
+			<a href="#"   data-inline="true" data-corners="false" data-role="button">Careers</a>
+			<center> Ricord© Est.2013</center>
+		</div>
+    </div>
+	<!-------------------add wishlist page------------------->
+	
+	<div data-role="page" id="pagethree">
+    
+        <div data-role="header" data-theme="g"><h1>Wish List</h1></div>
+		
+		<a href="#mypopthree" data-rel="popup" data-theme="f" data-inline="true" data-corners="false" data-role="button"data-role="button">New Category</a>
+		<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>
+
+        <ul id="myitemlist" data-role="listview" data-theme="c">
+			<li><a href="#clothingpage">Clothing</a></li>
+			<li><a href="#">Home Apliances</a></li>
+			<li><a href="#">Sports</a></li>
+			<li><a href="#">Technology</a></li>
+			<li><a href="#">Shoes</a></li>
+		</ul>
+
+        
+
+        <div data-role="popup" id="mypopthree">
+            <label for="padName">What category?</label>
+            <input type="text" name="name" id="longingName" value=""  />
+            <a href="#pagethree" data-role="button" onclick="addmyLonging()">Add Category</a>
+        </div>
+		<br>
+		<div data-theme="g" data-role="footer">
+			<a href="#pagezero"   data-inline="true"  data-role="button">Home</a>
+			<a href="#"  data-inline="true"  data-role="button">About us</a>
+			<a href="#"   data-inline="true" data-corners="false" data-role="button">Careers</a>
+			<center> Ricord© Est.2013</center>
+		</div>
+		
+    </div>
+   <!-------------------------Clothing wishlist page_---------->
+   <div data-role="page" id="clothingpage">
+		 <div data-role="header" data-theme="g"><h1>Clothing</h1></div>  
+		 
+			
+			<a data-role='button' href='#addapparel"+cloname+"' data-rel='popup' data-inline='true' data-theme='a' data-corners='false' onclick="addmySkirt()">Add Clothing Item</a>
+			<a href='index.html' data-role='button' data-corners='false'  data-inline='true' data-rel='back' data-theme='a'>Back</a>
+			
+			
+			 
+			<ul id="myclothinglist" data-role"listview" data-theme="c">
+			
+			</ul>
+			
+		<div data-theme="g" data-role="footer">
+			<a href="#pagezero"   data-inline="true"  data-role="button">Home</a>
+			<a href="#"  data-inline="true"  data-role="button">About us</a>
+			<a href="#"   data-inline="true" data-corners="false" data-role="button">Careers</a>
+			<center> Ricord© Est.2013</center>
+		</div>
+	</div>
+   
+
+</body>
+
+</html>
+
